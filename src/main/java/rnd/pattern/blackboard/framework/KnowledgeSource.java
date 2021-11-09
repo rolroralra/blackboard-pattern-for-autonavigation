@@ -8,9 +8,9 @@ package rnd.pattern.blackboard.framework;
  */
 public interface KnowledgeSource extends Runnable {
 
-     public boolean isInterested(BlackBoardObject bbo, BlackBoard bb);
+     boolean isInterested(BlackBoardObject bbo, BlackBoard bb);
 
-     public BlackBoardObject process(BlackBoardObject bbo);
+     BlackBoardObject process(BlackBoardObject bbo);
 
-     public void updateBlackBoardObject(BlackBoardObject bbo);
+     void updateBlackBoardObject(BlackBoardObject bbo);
 }

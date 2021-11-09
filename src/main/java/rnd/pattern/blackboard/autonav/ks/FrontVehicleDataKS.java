@@ -6,6 +6,8 @@ import rnd.pattern.blackboard.framework.AbstractKnowledgeSource;
 import rnd.pattern.blackboard.framework.BlackBoard;
 import rnd.pattern.blackboard.framework.BlackBoardObject;
 
+import java.time.LocalDateTime;
+
 /**
  * The FrontVehicleDataKS is an implementation of {@link AbstractKnowledgeSource}
  * This knowledge source operates on blackboard objects of the type FrontVehicleDataBBO
@@ -21,7 +23,7 @@ public class FrontVehicleDataKS extends AbstractKnowledgeSource {
      public boolean isInterested(BlackBoardObject bbo, BlackBoard bb) {
 
           if (bbo instanceof FrontVehicleDataBBO) {
-               this.bbo = (FrontVehicleDataBBO) bbo;
+               this.bbo = bbo;
                this.bb = bb;
 
                return true;
@@ -36,15 +38,14 @@ public class FrontVehicleDataKS extends AbstractKnowledgeSource {
      public BlackBoardObject process(BlackBoardObject bbo) {
           BlackBoardObject deltaSpeedDataBBO = new DeltaSpeedDataBBO();
 
-          
           try {
         	  //pretend the KS is working
                Thread.sleep(1000);
           } catch (InterruptedException iex) {
                //
           }
-          
-          System.out.println("==>> FrontVehicleDataKS processed FrontVehicleDataBBO");
+
+          System.out.printf("[%s] [%s] FrontVehicleDataKS processed FrontVehicleDataBBO%n", LocalDateTime.now(), Thread.currentThread().getId());
           return deltaSpeedDataBBO;
 
      }

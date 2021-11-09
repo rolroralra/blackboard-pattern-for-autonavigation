@@ -3,6 +3,8 @@ package rnd.pattern.blackboard.autonav.controller;
 import rnd.pattern.blackboard.framework.AbstractBlackBoardController;
 import rnd.pattern.blackboard.framework.BlackBoardObject;
 
+import java.time.LocalDateTime;
+
 /**
  * This blackboard controller gets notified when one or
  * more blackboard objects are added to the blackboard
@@ -13,7 +15,6 @@ import rnd.pattern.blackboard.framework.BlackBoardObject;
 public class AutoNavBBController extends AbstractBlackBoardController {
 
      public void execOutcome(BlackBoardObject bbo) {
-          // TODO Auto-generated method stub
-          System.out.println("==>> Operating brake pedal");
+          System.out.printf("[%s] [%s] Operating brake pedal [%s]%n", LocalDateTime.now(), Thread.currentThread().getId(), bbo.getClass().getSimpleName());
      }
 }

@@ -12,34 +12,35 @@ import java.util.concurrent.Executors;
  * @author Nalla Senthilnathan http://github.com/mapteb
  */
 public abstract class AbstractBlackBoardController implements BlackBoardController {
+     protected List<KnowledgeSource> knowledgeSourceList = new ArrayList<>();
 
-     protected List<KnowledgeSource> ksList = new ArrayList<KnowledgeSource>();
+     protected ExecutorService executorService;
 
-     protected ExecutorService exsvc;
+     @Override
+     public void update(Observable blackBoard, Object blackBoardObject) {
 
-     public void update(Observable bb, Object bbo) {
-
-          if (((BlackBoardObject) bbo).isReady())
-               execOutcome((BlackBoardObject) bbo);
+          if (((BlackBoardObject) blackBoardObject).isReady())
+               this.execOutcome((BlackBoardObject) blackBoardObject);
           else {
-               for (KnowledgeSource ks : ksList) {
-                    if (ks.isInterested((BlackBoardObject) bbo, (AbstractBlackBoard) bb)) {
-                         enrollKnowledgeSource(ks, exsvc);
+               for (KnowledgeSource knowledgeSource : knowledgeSourceList) {
+                    if (knowledgeSource.isInterested((BlackBoardObject) blackBoardObject, (AbstractBlackBoard) blackBoard)) {
+                         this.enrollKnowledgeSource(knowledgeSource, executorService);
                          break;
                     }
                }
           }
      }
 
-     public void setKnowledgeSourceList(List<KnowledgeSource> ksList) {
-          this.ksList = ksList;
+     public void setKnowledgeSourceList(List<KnowledgeSource> knowledgeSourceList) {
+          this.knowledgeSourceList = knowledgeSourceList;
      }
 
-     public void enrollKnowledgeSource(KnowledgeSource ks, ExecutorService exsvc) {
+     // https://codechacha.com/ko/java-executors/
+     public void enrollKnowledgeSource(KnowledgeSource knowledgeSource, ExecutorService executorService) {
 
-          exsvc = Executors.newFixedThreadPool(1);
-          exsvc.submit(ks);
-          exsvc.shutdown();
+          executorService = Executors.newFixedThreadPool(1);
+          executorService.submit(knowledgeSource);
+          executorService.shutdown();
 
      }
 

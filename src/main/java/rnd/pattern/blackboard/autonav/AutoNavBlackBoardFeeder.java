@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rnd.pattern.blackboard.autonav.bb.AutoNavBlackBoard;
+import rnd.pattern.blackboard.autonav.bbo.DeltaSpeedDataBBO;
 import rnd.pattern.blackboard.autonav.bbo.FrontVehicleDataBBO;
 import rnd.pattern.blackboard.autonav.bbo.RightLaneVehicleDataBBO;
 import rnd.pattern.blackboard.autonav.controller.AutoNavBBController;
@@ -29,12 +30,17 @@ public class AutoNavBlackBoardFeeder {
      private final AutoNavBBController controller = new AutoNavBBController();
 
      /**
-      * @param args
+      * @param args dddd
       */
      public static void main(String[] args) { 
           
           AutoNavBlackBoardFeeder feeder = new AutoNavBlackBoardFeeder();
 
+          /*
+           * 1. Add knowledge sources to the controller
+           * 2. Register controller with the blackboard
+           * 3. Add blackboard objects to the blackboard
+           */
           feeder.addKnowledgeSources();
           feeder.addController();
           feeder.addBlackBoardObjects();
@@ -70,7 +76,7 @@ public class AutoNavBlackBoardFeeder {
      
      public void addKnowledgeSources() {
 
-          List<KnowledgeSource> ksList = new ArrayList<KnowledgeSource>();
+          List<KnowledgeSource> ksList = new ArrayList<>();
           ksList.add(new RightLaneVehicleDataKS());
           ksList.add(new FrontVehicleDataKS());
           ksList.add(new DeltaSpeedDataKS());     

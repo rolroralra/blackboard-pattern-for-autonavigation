@@ -6,6 +6,8 @@ import rnd.pattern.blackboard.framework.AbstractKnowledgeSource;
 import rnd.pattern.blackboard.framework.BlackBoard;
 import rnd.pattern.blackboard.framework.BlackBoardObject;
 
+import java.time.LocalDateTime;
+
 /**
  * The RightLaneVehicleDataKS is an implementation of {@link AbstractKnowledgeSource}
  * This knowledge source operates on blackboard objects of the type RightLaneVehicleDataBBO
@@ -22,7 +24,7 @@ public class RightLaneVehicleDataKS extends AbstractKnowledgeSource {
           // System.out.println("==>> query RightLaneVehicleDataKS");
           // TODO Auto-generated method stub
           if (bbo instanceof RightLaneVehicleDataBBO) {
-               this.bbo = (RightLaneVehicleDataBBO) bbo;
+               this.bbo = bbo;
                this.bb = bb;
                // System.out.println("==>> RightLaneVehicleDataKS is interested");
 
@@ -42,7 +44,7 @@ public class RightLaneVehicleDataKS extends AbstractKnowledgeSource {
           } catch (InterruptedException iex) {
                //
           }
-          System.out.println("==>> RightLaneVehicleDataKS processed RightLaneVehicleDataBBO");
+          System.out.printf("[%s] [%s] RightLaneVehicleDataKS processed RightLaneVehicleDataBBO%n", LocalDateTime.now(), Thread.currentThread().getId());
 
           return deltaSpeedBBO;
      }
